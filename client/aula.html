@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<title>UniRoom</title>
+
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!--  Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="js/materialize.js"></script>
+	<script src="js/myjs.js"></script>
+	<script src="js/date.js" type="text/javascript"></script>
+	<!--<script async defer
+    src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUlRB23ZhvT108Fa6B5Gs6M5ZAphUaqbA&callback=initMap&sensor=false&v=3&libraries=geometry" >
+    </script>-->
+    <script type="text/javascript">
+    	let aula = getQueryVariable(window.location.href,"aula");
+    	let sede = getQueryVariable(window.location.href,"sede");
+    	console.log("sede = "+sede);
+    	console.log("aule = "+aula);
+    	let day = {
+			'08:00': null,
+			'08:30': null,
+			'09:00': null,
+			'09:30': null,
+			'10:00': null,
+			'10:30': null,
+			'11:00': null,
+			'11:30': null,
+			'12:00': null,
+			'12:30': null,
+			'13:00': null,
+			'13:30': null,
+			'14:00': null,
+			'14:30': null,
+			'15:00': null,
+			'15:30': null,
+			'16:00': null,
+			'16:30': null,
+			'17:00': null,
+			'17:30': null,
+			'18:00': null,
+			'18:30': null,
+			'19:00': null,
+			'19:30': null,
+			'20:00': null
+		};
+    	let url = "http://uniroomtn.herokuapp.com/schedule/sede/E0503/aula/A105";
+
+		let week = [];
+		let tmp = null;		//orario di fine della scorsa lezione
+		let name;			//nome della scorsa lezione
+		$.getJSON(url,function(data){
+			//console.log(data["orario"][0].from);
+			//dic_tot[k] = val.nomeMateria + "  " + val.nomeProf;
+
+			for (let i = 0; i < 5; i++){
+				let dic_singleDay = {
+		    		'08:00': null,
+		    		'08:30': null,
+		    		'09:00': null,
+		    		'09:30': null,
+		    		'10:00': null,
+		    		'10:30': null,
+		    		'11:00': null,
+		    		'11:30': null,
+		    		'12:00': null,
+		    		'12:30': null,
+		    		'13:00': null,
+		    		'13:30': null,
+		    		'14:00': null,
+		    		'14:30': null,
+		    		'15:00': null,
+		    		'15:30': null,
+		    		'16:00': null,
+		    		'16:30': null,
+		    		'17:00': null,
+		    		'17:30': null,
+		    		'18:00': null,
+		    		'18:30': null,
+		    		'19:00': null,
+		    		'19:30': null,
+		    		'20:00': null
+		    	};
+				if(data[i] == "Nessuna lezione oggi in questa aula"){
+					week.push(dic_singleDay);
+				}
+				else
+				{
+					$.each(data[i]["orario"], function(key,val){
+						for (k in dic_singleDay){
+							if (tmp != k){
+								if(tmp === null){
+									if(k === val.from.substring(0,5)){
+										tmp = val.to.substring(0,5);
+										name = val.nomeMateria + "  " + val.nomeProf;
+										dic_singleDay[k] = name;
+									}
+
+								}
+								else{		//continuo ad aggiungere la vecchia lezione
+									dic_singleDay[k] = name;
+								}
+							}
+							else{		//prossima lezione
+								if(k === val.from.substring(0,5)){
+									tmp = val.to.substring(0,5);
+									name = val.nomeMateria + "  " + val.nomeProf;
+									dic_singleDay[k] = name;
+								}
+								else{
+									tmp = null;
+									name = null;
+								}
+							}
+						}
+					});
+					week.push(dic_singleDay);
+				}
+			}
+			for(let k in day){
+				let string = "<tr><td>" + k + "</td>";
+				for (let i = 0; i < week.length; i++){
+					if(week[i][k] != null)
+						string = string.concat("<td>"+week[i][k]+"</td>");
+					else
+						string = string.concat("<td></td>");
+				}
+				$("#schedule_table").append(string);
+			}
+
+		});
+
+    </script>
+</head>
+<body>
+	<header>
+		<nav class="light-blue lighten-1" role="navigation">
+			<div class="nav-wrapper">
+				<a href="index.html" class="brand-logo white-text">UniRoom</a>
+				<a href="index.html" data-activates="mobile-menu" class="button-collapse white-text">
+					<i class="material-icons">menu</i>
+				</a>
+				<ul class="right hide-on-med-and-down">
+					<li>
+						<a href="http://www.unitn.it" class="white-text">
+							<i class="material-icons left">school</i>UNITN</a>
+					</li>
+					<li>
+						<a href="https://easyroom.unitn.it/Orario/index.php?view=easycourse&_lang=it&empty_box=0" class="white-text">
+							<i class="material-icons left">schedule</i>Schedule</a>
+					</li>
+					<li>
+						<a href="aboutus.html" class="white-text">
+							<i class="material-icons left">people</i>About us</a>
+					</li>
+				</ul>
+				<ul id="mobile-menu" class="side-nav">
+					<li>
+						<a href="http://www.unitn.it" class="black-text">
+							<i class="material-icons left">school</i>UNITN</a>
+					</li>
+					<li>
+						<a href="https://easyroom.unitn.it/Orario/index.php?view=easycourse&_lang=it&empty_box=0" class="black-text">
+							<i class="material-icons left">schedule</i>Schedule</a>
+					</li>
+					<li>
+						<div class="divider"></div>
+					</li>
+					<li>
+						<a href="aboutus.html" class="black-text">
+							<i class="material-icons left">people</i>About us</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	
+	<main>
+		<div>
+			<center>
+				<div class="row center">
+					<form class="col s12" action="result.html" method="GET">
+						<div class="input-field col s12" style="font-size: 30px">
+
+							<div class="col s12" style="max-height: 20px">
+								<div class="col s6">
+									<div class="popup" onclick="myFunction()" style="width: 200px">
+										<center>
+											<span class="popuptext" id="myPopup" style="font-size: 15px;width: 300px">Input sbagliato! Inserisci help per la lista di comandi disponibili.</span>
+										</center>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="col s10 offset-s1">
+								<div class="col s12 m4 l2">
+									<button class="btn-floating btn-large waves-effect waves-light red right" type="submit" name="geoloc" value="true" style="border-radius: 5px;">
+										<i class="material-icons">location_on</i>
+									</button>
+								</div>
+
+								<div class="col s12 m4 l8">
+
+									<input placeholder="Inserisci polo, aula o help..." id="inserisci" type="text" name="q" class="validate">
+
+									<input type="submit" name="submit" style="visibility: hidden;">
+								</div>
+
+								<div class="col s12 m4 l2">
+									<button class="btn-floating btn-large waves-effect waves-light red left" onclick="go()">
+										<i class="material-icons">forward</i>
+									</button>
+								</div>
+
+							</div>
+
+
+						</div>
+
+					</form>
+
+				</div>
+			</center>
+		</div>
+
+
+		<div class="container">
+			<h3 style="text-align: center;" class="mdc-typography--display1" id="headerText"></h3>
+			<div id="table_container">
+				<table class="bordered centered" style="table-layout: fixed;">
+					<thead>
+						<tr>
+							<th>Ora</th>
+							<th>Lunedì</th>
+							<th>Martedì</th>
+							<th>Mercoledì</th>
+							<th>Giovedì</th>
+							<th>Venerdì</th>
+						</tr>
+					</thead>
+					<tbody id="schedule_table" style="background-color: #e6e6e6">
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</main>
+
+
+	<footer class="page-footer light-blue">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">Company Bio</h5>
+					<p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support
+						and continue development on this project and is greatly appreciated.</p>
+				</div>
+
+				<div class="col l3 s12">
+					<h5 class="white-text">Contacts</h5>
+					<ul>
+						<li>
+							<a href="https://github.com/stebranchi/DarkPovoGang" style="color: white">
+								<h6 style="padding-bottom: 1%">
+									<i style="font-size:24px; color: white; padding-right: 2%" class="fa fa-github"></i>Github</h6>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script type="text/javascript">
+		var s = "Orario aula: "+ getQueryVariable(window.location.href,"aula").toUpperCase();
+		console.log("s = "+s);
+		document.getElementById("headerText").innerHTML = s;
+	</script>
+</body>

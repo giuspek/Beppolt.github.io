@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+	<title>UniRoom</title>
+
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!--  Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="js/materialize.js"></script>
+	<script src="js/myjs.js"></script>
+	<script src="js/init.js"></script>
+	<!--<script async defer
+    src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUlRB23ZhvT108Fa6B5Gs6M5ZAphUaqbA&callback=initMap&sensor=false&v=3&libraries=geometry" >
+    </script>-->
+
+	
+
+</head>
+
+<body>
+	
+	<header>
+		<nav class="light-blue lighten-1" role="navigation">
+			<div class="nav-wrapper">
+				<a href="index.html" class="brand-logo white-text">UniRoom</a>
+				<a href="index.html" data-activates="mobile-menu" class="button-collapse white-text">
+					<i class="material-icons">menu</i>
+				</a>
+				<ul class="right hide-on-med-and-down">
+					<li>
+						<a href="http://www.unitn.it" class="white-text">
+							<i class="material-icons left">school</i>UNITN</a>
+					</li>
+					<li>
+						<a href="https://easyroom.unitn.it/Orario/index.php?view=easycourse&_lang=it&empty_box=0" class="white-text">
+							<i class="material-icons left">schedule</i>Schedule</a>
+					</li>
+					<li>
+						<a href="aboutus.html" class="white-text">
+							<i class="material-icons left">people</i>About us</a>
+					</li>
+				</ul>
+				<ul id="mobile-menu" class="side-nav">
+					<li>
+						<a href="http://www.unitn.it" class="black-text">
+							<i class="material-icons left">school</i>UNITN</a>
+					</li>
+					<li>
+						<a href="https://easyroom.unitn.it/Orario/index.php?view=easycourse&_lang=it&empty_box=0" class="black-text">
+							<i class="material-icons left">schedule</i>Schedule</a>
+					</li>
+					<li>
+						<div class="divider"></div>
+					</li>
+					<li>
+						<a href="aboutus.html" class="black-text">
+							<i class="material-icons left">people</i>About us</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	
+	<main>
+		<div>
+			<center>
+				<div class="row center">
+					<form class="col s12" action="result.html" method="GET">
+						<div class="input-field col s12" style="font-size: 30px">
+
+							<div class="col s12" style="max-height: 20px">
+								<div class="col s6">
+									<div class="popup" onclick="myFunction()" style="width: 200px">
+										<center>
+											<span class="popuptext" id="myPopup" style="font-size: 15px;width: 300px">Input sbagliato! Inserisci help per la lista di comandi disponibili.</span>
+										</center>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="col s10 offset-s1">
+								<div class="col s12 m4 l2">
+									<button class="btn-floating btn-large waves-effect waves-light red right" type="submit" name="geoloc" value="true" style="border-radius: 5px;">
+										<i class="material-icons">location_on</i>
+									</button>
+								</div>
+
+								<div class="col s12 m4 l8">
+
+									<input placeholder="Inserisci polo, aula o help..." id="inserisci" type="text" name="q" class="validate">
+
+									<input type="submit" name="submit" style="visibility: hidden;">
+								</div>
+
+								<div class="col s12 m4 l2">
+									<button class="btn-floating btn-large waves-effect waves-light red left" onclick="go()">
+										<i class="material-icons">forward</i>
+									</button>
+								</div>
+
+							</div>
+
+
+						</div>
+
+					</form>
+
+				</div>
+			</center>
+		</div>
+
+		<div class="container" style="padding-bottom: 100px">
+			<center>
+				<h3 id="nome_polo"></h3>
+			</center>
+			<div id="table_div">
+				<table class="striped">
+					<thead>
+						<tr>
+							<th>Aula</th>
+							<th>Libera da</th>
+							<th>Libera fino</th>
+						</tr>
+					</thead>
+
+					<tbody id="command_table">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+
+	<footer class="page-footer light-blue">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">Company Bio</h5>
+					<p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support
+						and continue development on this project and is greatly appreciated.</p>
+				</div>
+
+				<div class="col l3 s12">
+					<h5 class="white-text">Contacts</h5>
+					<ul>
+						<li>
+							<a href="https://github.com/stebranchi/DarkPovoGang" style="color: white">
+								<h6 style="padding-bottom: 1%">
+									<i style="font-size:24px; color: white; padding-right: 2%" class="fa fa-github"></i>Github</h6>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<script type="text/javascript">	
+		let url;
+		//script per creare la tabella degli orari
+		var sede = getQueryVariable_q(window.location.href);
+		var geoloc = getQueryVariable_geoloc(window.location.href);
+		if (sede != null) {
+			sede = sede.replace("%20", " ");
+			switch (sede) {
+				case "povo": sede = "E0503"; break;
+				case "economia": sede = "E0101"; break;
+				case "lettere": sede = "E0801"; break;
+				case "filosofia": sede = "E0801"; break;
+				case "mesiano": sede = "E0301"; break;
+				case "ingegneria": sede = "E0301"; break;
+				case "giurisprudenza": sede = "E0201"; break;
+				case "sociologia": sede = "E0601"; break;
+				case "scienze cognitive": sede = "E0705"; break;
+				case "giuri": sede = "E0201"; break;
+
+				case "socio": sede = "E0601"; break;
+				case "help": location.href = "index.html?q=help";
+			}
+			url = "http://localhost:8080/sede/"+ sede;
+			$.getJSON(url, function (data) {
+				if(data == "Nessuna aula libera"){
+					$("#command_table").append("<tr><td>Nessuna aula libera</td><td></td><td></td></tr>");
+				}
+				else{
+					$.each(data, function (key, val) {
+						if (val.orario[0]) {
+							$("#command_table").append("<tr><td>" + val.NomeAula + "</td><td>ora</td><td>" + val.orario[0].from + "</td></tr>");
+						}
+						else {
+							$("#command_table").append("<tr><td>" + val.NomeAula + "</td><td>ora</td><td>fine giornata</td></tr>");
+						}
+
+					});
+				}
+				
+			});
+		} 
+		else if(geoloc != null)
+		{
+			var getPosition = function (options) {
+				return new Promise(function (resolve, reject) {
+					navigator.geolocation.getCurrentPosition(resolve, reject, options);
+				});
+			}
+
+			getPosition()
+			.then((position) => {
+				document.getElementById("nome_polo").innerHTML = "Ricerca in corso";
+				let lat = position.coords.latitude;
+				let lng = position.coords.longitude;
+				fetch("http://localhost:8080/room?lat="+ lat + "&&lng=" + lng)
+				.then(ris => {
+					let data = ris.json();
+					data.then(result => {
+						var name = "Aule libere presso: " + result[0].sede;
+						document.getElementById("nome_polo").innerHTML = name;
+						$.each(result, function (key, val) 
+							{
+							if (val.orario[0]) 
+							{
+								$("#command_table").append("<tr><td>" + val.NomeAula + "</td><td>ora</td><td>" + val.orario[0].from + "</td></tr>");
+							}
+							else 
+							{
+								$("#command_table").append("<tr><td>" + val.NomeAula + "</td><td>ora</td><td>fine giornata</td></tr>");
+							}
+						});
+					})
+					.catch((err) => {
+						console.error(err.message);
+					})					
+				})
+			})
+			.catch((err) => {
+				console.error("Errore nella geo" + err.message);
+			});		
+		}
+		else {
+			location.href = "index.html?q=dc";
+		}
+	</script>
+
+	<script type="text/javascript">
+		//script per caricare il titolo
+		var polo = getQueryVariable_q(window.location.href);
+		//polo = polo.replace("%20", " ");
+		if(polo !== null) {
+			var name = "Aule libere presso: " + polo;
+			
+		} else {
+			var name = "Tentativo di utilizzo geolocalizzazione";
+		}
+		document.getElementById("nome_polo").innerHTML = name;
+	</script>
+</body>
+
+</html>

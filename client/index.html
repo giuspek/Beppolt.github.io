@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+	<title>UniRoom</title>
+
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!--  Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="js/materialize.js"></script>
+	<script src="js/init.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.ui.js"></script>
+	<script src="js/myjs.js"></script>
+
+
+</head>
+
+<body>
+
+	<header>
+		<nav class="light-blue lighten-1" role="navigation">
+			<div class="nav-wrapper">
+				<a href="index.html" class="brand-logo white-text">UniRoom</a>
+				<a href="index.html" data-activates="mobile-menu" class="button-collapse white-text">
+					<i class="material-icons">menu</i>
+				</a>
+				<ul class="right hide-on-med-and-down">
+					<li>
+						<a href="http://www.unitn.it" class="white-text">
+							<i class="material-icons left">school</i>UNITN</a>
+					</li>
+					<li>
+						<a href="https://easyroom.unitn.it/Orario/index.php?view=easycourse&_lang=it&empty_box=0" class="white-text">
+							<i class="material-icons left">schedule</i>Schedule</a>
+					</li>
+					<li>
+						<a href="aboutus.html" class="white-text">
+							<i class="material-icons left">people</i>About us</a>
+					</li>
+				</ul>
+				<ul id="mobile-menu" class="side-nav">
+					<li>
+						<a href="http://www.unitn.it" class="black-text">
+							<i class="material-icons left">school</i>UNITN</a>
+					</li>
+					<li>
+						<a href="https://easyroom.unitn.it/Orario/index.php?view=easycourse&_lang=it&empty_box=0" class="black-text">
+							<i class="material-icons left">schedule</i>Schedule</a>
+					</li>
+					<li>
+						<div class="divider"></div>
+					</li>
+					<li>
+						<a href="aboutus.html" class="black-text">
+							<i class="material-icons left">people</i>About us</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="section no-pad-bot" id="index-banner">
+			<div class="container">
+				<p style="color: red;">The application is still under construction.. forgive us!</p>
+				<br>
+				<br>
+				<div style="padding-top: 5%">
+					<div>
+						<center>
+							<div class="row center">
+
+								<form class="col s12" action="result.html" method="GET">
+
+									<div class="input-field col s12" style="font-size: 30px">
+
+										<div class="col s12" style="max-height: 20px">
+											<div class="col s6">
+												<div class="popup" onclick="myFunction()" style="width: 200px">
+													<center>
+														<span class="popuptext" id="myPopup" style="font-size: 15px;width: 300px">Input sbagliato! Inserisci help per la lista di comandi disponibili.</span>
+													</center>
+
+												</div>
+											</div>
+										</div>
+
+										<div class="col s10 offset-s1">
+											<div class="col s12 m4 l2">
+												<button class="btn-floating btn-large waves-effect waves-light red right" type="submit" name="geoloc" value="true" onclick="go()" style="border-radius: 5px;">
+													<i class="material-icons">location_on</i>
+												</button>
+											</div>
+
+											<div class="col s12 m4 l8">
+
+												<input placeholder="Inserisci polo, aula o help..." id="inserisci" type="text" name="q" class="validate">
+
+												<input type="submit" name="submit" style="visibility: hidden;">
+											</div>
+
+											<div class="col s12 m4 l2">
+												<button class="btn-floating btn-large waves-effect waves-light red left" onclick="go()">
+													<i class="material-icons">forward</i>
+												</button>
+											</div>
+
+										</div>
+
+
+									</div>
+
+								</form>
+
+							</div>
+						</center>
+					</div>
+				</div>
+
+				<div id="table_div" style="visibility: hidden; padding-bottom: 150px">
+					<table class="striped" id="command_table">
+						<thead>
+							<tr>
+								<th>Input</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>help</td>
+								<td>List all the possible command to use</td>
+							</tr>
+							<tr>
+								<td>povo</td>
+								<td>List all the free rooms at Povo</td>
+							</tr>
+							<tr>
+								<td>giurisprudenza</td>
+								<td>List all the free rooms at Giurisprudenza</td>
+							</tr>
+							<tr>
+								<td>sociologia</td>
+								<td>List all the free rooms at Sociologia</td>
+							</tr>
+							<tr>
+								<td>economia</td>
+								<td>List all the free rooms at Economia</td>
+							</tr>
+							<tr>
+								<td>mesiano</td>
+								<td>List all the free rooms at Mesiano</td>
+							</tr>
+							<tr>
+								<td>scienze cognitive</td>
+								<td>List all the free rooms at Scienze Cognitive</td>
+							</tr>
+							<tr>
+								<td>lettere/filosofia</td>
+								<td>List all the free rooms at Lettere</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</main>
+
+	<footer class="page-footer light-blue">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">Company Bio</h5>
+					<p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support
+						and continue development on this project and is greatly appreciated.</p>
+				</div>
+
+				<div class="col l3 s12">
+					<h5 class="white-text">Contacts</h5>
+					<ul>
+						<li>
+							<a href="https://github.com/stebranchi/DarkPovoGang" style="color: white">
+								<h6 style="padding-bottom: 1%">
+									<i style="font-size:24px; color: white; padding-right: 2%" class="fa fa-github"></i>Github</h6>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script type="text/javascript">
+
+		var par = getQueryVariable_q(window.location.href);
+		if (par === "help") {
+			console.log("par = help")
+			showCommand()
+		}
+		else if (par === "dc") {
+			var popup = document.getElementById("myPopup");
+			popup.classList.toggle("show");
+			delay(5000).then(() => { popup.classList.toggle("close"); });
+
+
+		}
+	</script>
+	
+
+</body>
+
+</html>
